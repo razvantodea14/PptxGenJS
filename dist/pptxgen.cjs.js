@@ -1,4 +1,4 @@
-/* PptxGenJS 3.13.0-beta.0 @ 2023-05-17T03:15:58.384Z */
+/* PptxGenJS 3.13.0-beta.1 @ 2024-05-29T16:25:17.058Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -6277,6 +6277,10 @@ function genXmlTextBody(slideObj) {
         // D: End paragraph
         strSlideXml += '</a:p>';
     });
+    // PowerPoint shows repair message if txBody misses p #1048
+    if (!arrLines.length) {
+        strSlideXml += '<a:p><a:endParaRPr /></a:p>';
+    }
     // STEP 7: Close the textBody
     strSlideXml += slideObj._type === SLIDE_OBJECT_TYPES.tablecell ? '</a:txBody>' : '</p:txBody>';
     // LAST: Return XML
